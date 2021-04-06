@@ -27,18 +27,16 @@ and hits the end-points exposed in CakeController.java
 Working:
 
     Without Docker:
-    The application is started by running the main class (CakeManagerApplication.java). It uses Oauth2 for authentication
-    with GitHub acting as an authorisation server. When you try to access the application using url http://localhost:8080/,
-    you will be redirected to GitHub. Once you enter valid GitHub credentials you will be asked for permission to share
-    basic details with cake-manager-oauth app in GitHub. Once you provide the permission the list of cakes can be accessed by using:
-    http://localhost:8080/
-
-    You can also use following url to get the list of cakes in json format:
+    1. The application is started by running the main class (CakeManagerApplication.java). It uses Oauth2 for authentication with GitHub acting as an authorisation server.
+    2. When you try to access the application using url http://localhost:8080/, you will be redirected to GitHub. Once you enter valid GitHub credentials you will be asked for permission to share basic details with cake-manager-oauth app in GitHub.
+    3. Once you provide the permission you will be redirected to http://localhost:8080/ where you can see the list of cakes.
+    4. There is a link called "Add Cake". You will be taken to a user form when you click on that link. You can provide cake parameters and submit to add a new cake.
+    5. You can also use following url to get the list of cakes in json format:
+        http://localhost:8080/cakes
+    6. You can also submit a new cake to the existing list by using following end-point in a "POST" request. However they should provide cake parameters
+    (title, description and image url) in request body in order to add a new cake to the list. They should also provide OAuth2.0 access token as an authorisation header
     http://localhost:8080/cakes
-
-    You can also submit a new cake to the existing list by using following end-point in a "POST" request. However they should provide cake parameters
-    (title, description and image url) in request body in order to add a new cake to the list.
-    http://localhost:8080/cakes
+    7. Once the cake is added you can again visit http://localhost:8080/ to check that the cake is added to the database.
 
     With Docker:
     The application can also be run as a docker image. Users can run following command to package the application:
