@@ -6,10 +6,13 @@ import com.waracle.cakemgr.repository.CakeRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 
 import static java.util.Arrays.asList;
 import static java.util.Collections.singletonList;
+import static org.assertj.core.util.Sets.newHashSet;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -40,7 +43,7 @@ public class CakeServiceTest {
                 .build());
         when(cakeRepository.findAll()).thenReturn(cakeEntities);
 
-        List<Cake> result = cakeService.getAllCakes();
+        Collection<Cake> result = cakeService.getAllCakes();
 
         assertEquals(cakes, result);
         verify(cakeRepository).findAll();
@@ -48,51 +51,51 @@ public class CakeServiceTest {
 
     @Test
     public void shouldSaveCakes() {
-        List<Cake> cakes = asList(
+        Collection<Cake> cakes = asList(
                 Cake.builder()
                         .title("title1")
                         .description("description1")
                         .image("image1")
                         .build(),
                 Cake.builder()
-                        .title("title1")
-                        .description("description1")
-                        .image("image1")
+                        .title("title2")
+                        .description("description2")
+                        .image("image2")
                         .build());
 
-        List<CakeEntity> cakeEntities = asList(
+        Collection<CakeEntity> cakeEntities = asList(
                 CakeEntity.builder()
                         .title("title1")
                         .description("description1")
                         .image("image1")
                         .build(),
                 CakeEntity.builder()
-                        .title("title1")
-                        .description("description1")
-                        .image("image1")
+                        .title("title2")
+                        .description("description2")
+                        .image("image2")
                         .build());
 
         cakeService.saveCakes(cakes);
 
-        verify(cakeRepository).saveAll(cakeEntities);
+        verify(cakeRepository).saveAll(newHashSet(cakeEntities));
     }
 
     @Test
     public void shouldAddCake() {
         Cake cake = Cake.builder()
-                .title("title1")
-                .description("description1")
-                .image("image1")
-                .build();
+            .title("title1")
+            .description("description1")
+            .image("image1")
+            .build();
 
         CakeEntity cakeEntity = CakeEntity.builder()
-                .title("title1")
-                .description("description1")
-                .image("image1")
-                .build();
+            .title("title1")
+            .description("description1")
+            .image("image1")
+            .build();
 
         cakeService.addCake(cake);
 
-        verify(cakeRepository).saveAll(singletonList(cakeEntity));
+        verify(cakeRepository).saveAll(newHashSet(singletonList(cakeEntity)));
     }
 }

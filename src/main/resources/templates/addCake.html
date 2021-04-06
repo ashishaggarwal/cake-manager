@@ -1,0 +1,22 @@
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <link href="webjars/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    </head>
+    <body>
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">Cake Manager</a>
+                </div>
+            </div>
+        </nav>
+        <div class="container">
+            <form action="#" th:action="@{/v2/cakes}"  method="post">
+                <p>Title: <input type="text" name="title"/></p>
+                <p>Description: <input type="text" name="desc"/></p>
+                <p>Image Url: <input type="text" name="image" /></p>
+                <p><input type="submit" value="Submit" />
+            </form>
+        </div>
+    </body>
+</html>

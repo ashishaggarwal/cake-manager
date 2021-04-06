@@ -11,6 +11,7 @@ import java.util.List;
 
 import static java.util.Collections.singletonList;
 import static java.util.stream.Collectors.toList;
+import static java.util.stream.Collectors.toSet;
 
 @Service
 @AllArgsConstructor
@@ -19,15 +20,15 @@ public class CakeService {
     private final CakeRepository cakeRepository;
 
     public void saveCakes(Collection<Cake> cakes) {
-        List<CakeEntity> cakeEntities = cakes.stream()
-                .map(this::toCakeEntity)
-                .collect(toList());
+        Collection<CakeEntity> cakeEntities = cakes.stream()
+            .map(this::toCakeEntity)
+            .collect(toSet());
 
         cakeRepository.saveAll(cakeEntities);
     }
 
-    public List<Cake> getAllCakes() {
-        List<CakeEntity> cakes = cakeRepository.findAll();
+    public Collection<Cake> getAllCakes() {
+        Collection<CakeEntity> cakes = cakeRepository.findAll();
         return cakes.stream()
                 .map(this::toCake)
                 .collect(toList());

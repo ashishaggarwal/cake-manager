@@ -7,18 +7,22 @@ Cake Manager Micro Service is a simple application built using rest APIs.
 
 The project is set-up as a maven project. It is  using Spring-boot, Spring MVC and Spring RestTemplate and JPA.
 The project also uses HSQL db as a in-memory database.
-It also uses thymeleaf for implementing the view with Bootstrap for stylesheets (This is option and is just used to display
-the list of cakes available in the system as a html page)
+It also uses thymeleaf for implementing the view with Bootstrap for stylesheets (This is optional and is just used to display the list of cakes available in the system as a html page)
 
-"/" - This is a GET end-point and will redirect the users to cake.html page with a list of available cakes in the syste,
+Following end-points are available in this project:
+
+"/" - This is a GET end-point and will redirect the users to cake.html page which will show the list of available cakes in the system
 "/cakes" -  This is a GET end-point and will return the list of cakes as "JSON"
 "/cakes" -  This is a POST end-point and will add a new cake to the list of cakes
+"/v2/cakes" -  This is a POST end-point and will add a new cake to the list of cakes. This end-point is invoked by addCake.html page which is a user form
+ (As the end-points are secured using OAuth 2.0, it's a bit hard to invoke them using rest clients like Postman or CURL. As the user is already authenticated
+ when they hit "/" or "/cakes" end-point, this end-point is created to add a new cake from the web page itself
 
 Running the tests
 The project uses two sets of tests:
 1. Controller tests - These are based on spring-test module. When the test is run as a JUnit test it mocks the HttpRequest
 and hits the end-points exposed in CakeController.java
-2. Service test - This is a simple unit test using Mockito to mock dependencies
+2. Service test - This is a simple JUnit test using Mockito to mock dependencies
 
 Working:
 
