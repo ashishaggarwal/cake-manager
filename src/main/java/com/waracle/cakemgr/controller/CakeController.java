@@ -10,12 +10,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Collection;
 
 import static org.springframework.http.HttpStatus.CREATED;
+import static org.springframework.http.MediaType.APPLICATION_FORM_URLENCODED_VALUE;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @Controller
@@ -45,22 +45,15 @@ public class CakeController {
         return new ResponseEntity<>(cake, CREATED);
     }
 
-    @PostMapping(value = "/v2/cakes")
-    @ResponseBody
-    public ResponseEntity<Cake> addCake(@RequestParam("title") String title,
-                                        @RequestParam("desc") String description,
-                                        @RequestParam("image") String image) {
-        Cake cake = Cake.builder()
-                .title(title)
-                .description(description)
-                .image(image)
-                .build();
-        cakeService.addCake(cake);
-        return new ResponseEntity<>(cake, CREATED);
+    @GetMapping(value = "/addCake")
+    public String addCakeForm(Model model) {
+        model.addAttribute("cake", Cake.builder().build());
+        return "addCake";
     }
 
-    @GetMapping(value = "/addCake")
-    public String addCakeV2() {
-        return "addCake";
+    @PostMapping(value = "/addCake", consumes = {APPLICATION_FORM_URLENCODED_VALUE})
+    public String saveCake(Cake cake) {
+        cakeService.addCake(cake);
+        return "redirect:/";
     }
 }

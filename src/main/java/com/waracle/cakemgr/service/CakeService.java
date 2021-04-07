@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static java.util.Collections.singletonList;
 import static java.util.stream.Collectors.toList;
@@ -30,8 +31,8 @@ public class CakeService {
     public Collection<Cake> getAllCakes() {
         Collection<CakeEntity> cakes = cakeRepository.findAll();
         return cakes.stream()
-                .map(this::toCake)
-                .collect(toList());
+            .map(this::toCake)
+            .collect(toSet());
     }
 
     public void addCake(Cake cake) {
@@ -40,17 +41,17 @@ public class CakeService {
 
     private Cake toCake(CakeEntity cakeEntity) {
         return Cake.builder()
-                .title(cakeEntity.getTitle())
-                .description(cakeEntity.getDescription())
-                .image(cakeEntity.getImage())
-                .build();
+            .title(cakeEntity.getTitle())
+            .description(cakeEntity.getDescription())
+            .image(cakeEntity.getImage())
+            .build();
     }
 
     private CakeEntity toCakeEntity(Cake cake) {
         return CakeEntity.builder()
-                .title(cake.getTitle())
-                .description(cake.getDescription())
-                .image(cake.getImage())
-                .build();
+            .title(cake.getTitle())
+            .description(cake.getDescription())
+            .image(cake.getImage())
+            .build();
     }
 }

@@ -8,13 +8,13 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
+import static org.springframework.http.MediaType.APPLICATION_FORM_URLENCODED_VALUE;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -62,6 +62,28 @@ public class CakeControllerTest {
             .andExpect(jsonPath("$.title").value(cake.getTitle()))
             .andExpect(jsonPath("$.desc").value(cake.getDescription()))
             .andExpect(jsonPath("$.image").value(cake.getImage()));
+    }
+
+    @Test
+    public void shouldReturnAddCakeForm() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/addCake"))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType("text/html;charset=UTF-8"))
+            .andExpect(model().attributeExists("cake"))
+            .andExpect(view().name("addCake"))
+            .andExpect(model().hasNoErrors());
+    }
+
+    @Test
+    public void shouldSaveCakeFromAddCakeForm() throws Exception {
+        Cake cake = cake();
+        mockMvc.perform(MockMvcRequestBuilders.post("/addCake")
+            .contentType(APPLICATION_FORM_URLENCODED_VALUE)
+            .param("title", cake.getTitle())
+            .param("description", cake.getDescription())
+            .param("image", cake.getImage()))
+            .andExpect(status().is3xxRedirection())
+            .andExpect(view().name("redirect:/"));
     }
 
     private Cake cake() {

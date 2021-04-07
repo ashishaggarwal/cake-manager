@@ -11,10 +11,10 @@
             </div>
         </nav>
         <div class="container">
-            <form action="#" th:action="@{/v2/cakes}"  method="post">
-                <p>Title: <input type="text" name="title"/></p>
-                <p>Description: <input type="text" name="desc"/></p>
-                <p>Image Url: <input type="text" name="image" /></p>
+            <form action="#" th:action="@{/addCake}"  method="post" th:object="${cake}">
+                <p>Title: <input type="text" th:field="*{title}"/></p>
+                <p>Description: <input type="text" th:field="*{description}"/></p>
+                <p>Image Url: <input type="text" th:field="*{image}" /></p>
                 <p><input type="submit" value="Submit" />
             </form>
         </div>

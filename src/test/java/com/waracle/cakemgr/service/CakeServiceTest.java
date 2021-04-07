@@ -31,16 +31,22 @@ public class CakeServiceTest {
 
     @Test
     public void shouldGetAllCakes() {
-        List<Cake> cakes = singletonList(Cake.builder()
+        Collection<Cake> cakes = newHashSet(singletonList(Cake.builder()
                 .title("title")
                 .description("desc")
                 .image("img")
-                .build());
-        List<CakeEntity> cakeEntities = singletonList(CakeEntity.builder()
-                .title("title")
-                .description("desc")
-                .image("img")
-                .build());
+                .build()));
+        List<CakeEntity> cakeEntities = asList(
+                CakeEntity.builder()
+                    .title("title")
+                    .description("desc")
+                    .image("img")
+                    .build(),
+                CakeEntity.builder()
+                    .title("title")
+                    .description("desc")
+                    .image("img")
+                    .build());
         when(cakeRepository.findAll()).thenReturn(cakeEntities);
 
         Collection<Cake> result = cakeService.getAllCakes();
