@@ -14,7 +14,8 @@ Following end-points are available in this project:
 "/" - This is a GET end-point and will redirect the users to cake.html page which will show the list of available cakes in the system
 "/cakes" -  This is a GET end-point and will return the list of cakes as "JSON"
 "/cakes" -  This is a POST end-point and will add a new cake to the list of cakes
-"/v2/cakes" -  This is a POST end-point and will add a new cake to the list of cakes. This end-point is invoked by addCake.html page which is a user form
+"/addCake" -  This is a GET end-point and will take users to a user form for submitting new cake
+"/addCake" -  This is a POST end-point and will add a new cake to the list of cakes. This end-point is invoked by addCake.html page which is a user form
  (As the end-points are secured using OAuth 2.0, it's a bit hard to invoke them using rest clients like Postman or CURL. As the user is already authenticated
  when they hit "/" or "/cakes" end-point, this end-point is created to add a new cake from the web page itself
 
